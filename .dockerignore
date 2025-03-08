@@ -31,8 +31,3 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
-
-**/*.log
-**/tmp
-**/node_modules
-**/.git
