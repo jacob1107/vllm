@@ -8,7 +8,7 @@
 ARG CUDA_VERSION=12.4.1
 #################### BASE BUILD IMAGE ####################
 # prepare basic build environment
-FROM registry.cn-hangzhou.aliyuncs.com/jacob_shen/descheduler:${CUDA_VERSION}-devel-ubuntu20.04 AS base
+FROM registry.cn-hangzhou.aliyuncs.com/jacob_shen/descheduler:cuda${CUDA_VERSION}-devel-ubuntu20.04 AS base
 ARG CUDA_VERSION=12.4.1
 ARG PYTHON_VERSION=3.12
 ARG TARGETPLATFORM
