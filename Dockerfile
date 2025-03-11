@@ -1,4 +1,4 @@
-FROM jacob1107/backend-vllm:7e61a33
+FROM jacob1107/backend-vllm:7e61a33 AS base
 COPY requirements/common.txt requirements/common.txt
 COPY requirements/cuda.txt requirements/cuda.txt
  
