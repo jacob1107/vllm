@@ -29,7 +29,7 @@ jobs:
      #- name: Clean Docker
      #   run: docker system prune --all --force --volumes
       - name: Build Docker Image
-        run: docker build  -t ${{ env.DOCKERHUB_USERNAME }}/backend-vllm:${{ steps.vars.outputs.sha_short }}  .  --target   vllm-openai   
+        run:  DOCKER_BUILDKIT=1 docker build  -t ${{ env.DOCKERHUB_USERNAME }}/backend-vllm:${{ steps.vars.outputs.sha_short }}  .  --target   vllm-openai   
       - name: Build backend and push
         uses: docker/build-push-action@v4
         #with:
