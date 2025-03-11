@@ -54,7 +54,8 @@ WORKDIR /workspace
 RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
         uv pip install --index-url https://download.pytorch.org/whl/nightly/cu126 "torch==2.7.0.dev20250121+cu126" "torchvision==0.22.0.dev20250121";  \
     fi
-
+    
+FROM base AS buildcuda
 COPY requirements/common.txt requirements/common.txt
 COPY requirements/cuda.txt requirements/cuda.txt
  
