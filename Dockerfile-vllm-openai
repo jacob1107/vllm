@@ -51,12 +51,13 @@ RUN ldconfig /usr/local/cuda-$(echo $CUDA_VERSION | cut -d. -f1,2)/compat/
 # pytorch will not appear as a vLLM dependency in all of the following steps
 # after this step
 RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
-        uv pip install   https://download.pytorch.org/whl/nightly/cu126/torch-2.7.0.dev20250111%2Bcu126-cp312-cp312-linux_aarch64.whl;\
-        uv pip install   https://download.pytorch.org/whl/nightly/cpu/torchvision-0.22.0.dev20250110-cp312-cp312-linux_aarch64.whl;\
-        #uv pip install --index-url https://download.pytorch.org/whl/nightly/cu124 "torch==2.7.0.dev20250111+cu126" "torchvision==0.22.0.dev20250110";  \
+       # uv pip install   https://download.pytorch.org/whl/nightly/cu126/torch-2.7.0.dev20250111%2Bcu126-cp312-cp312-linux_aarch64.whl;\
+       # uv pip install   https://download.pytorch.org/whl/nightly/cpu/torchvision-0.22.0.dev20250110-cp312-cp312-linux_aarch64.whl;\
+       # uv pip install --index-url https://download.pytorch.org/whl/nightly/cu124 "torch==2.7.0.dev20250111+cu126" "torchvision==0.22.0.dev20250110";  \
        # uv pip install --index-url https://download.pytorch.org/whl/nightly/cu124 "torch==2.4.0.dev20240605+cu124" "torchvision==0.19.0.dev20240605";  \
        # uv pip install --index-url https://download.pytorch.org/whl/nightly/cu124 "torch==2.6.0.dev20241210+cu124" "torchvision==0.22.0.dev20241215";  \
-    fi
+       uv pip install  torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu126 ;\
+       fi
 
 
 
