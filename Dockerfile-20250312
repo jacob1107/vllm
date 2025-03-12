@@ -3,11 +3,11 @@
 # image with vLLM installed
 # TODO: Restore to base image after FlashInfer AOT wheel fixed
 ARG CUDA_VERSION=12.4.1
-FROM nvidia/cuda:${CUDA_VERSION}-devel-ubuntu20.04 AS vllm-base
+FROM nvidia/cuda:12.4.1-devel-ubuntu20.04 AS vllm-base
 ARG PYTHON_VERSION=3.12
 WORKDIR /vllm-workspace
-ENV DEBIAN_FRONTEND=noninteractive
 ARG TARGETPLATFORM
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN PYTHON_VERSION_STR=$(echo ${PYTHON_VERSION} | sed 's/\.//g') && \
     echo "export PYTHON_VERSION_STR=${PYTHON_VERSION_STR}" >> /etc/environment
