@@ -50,15 +50,13 @@ WORKDIR /workspace
 # we need to install torch and torchvision from the nightly builds first,
 # pytorch will not appear as a vLLM dependency in all of the following steps
 # after this step
-RUN --mount=type=cache,target=/root/.cache/uv \
-    if [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
+RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
         uv pip install --index-url https://download.pytorch.org/whl/nightly/cu126 "torch==2.7.0.dev20250121+cu126" "torchvision==0.22.0.dev20250121";  \
     fi
 
 COPY requirements/common.txt requirements/common.txt
 COPY requirements/cuda.txt requirements/cuda.txt
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv pip install -r requirements/cuda.txt
+RUN  uv pip install -r requirements/cuda.txt
 
 # cuda arch list used by torch
 # can be useful for both `dev` and `test`
