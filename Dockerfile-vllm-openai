@@ -57,7 +57,6 @@ RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
        # uv pip install --index-url https://download.pytorch.org/whl/nightly/cu124 "torch==2.4.0.dev20240605+cu124" "torchvision==0.19.0.dev20240605";  \
        # uv pip install --index-url https://download.pytorch.org/whl/nightly/cu124 "torch==2.6.0.dev20241210+cu124" "torchvision==0.22.0.dev20241215";  \
        uv pip install  torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu126 ;\
-       ls -al;\
        fi
 
 
@@ -79,7 +78,6 @@ RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
 
 RUN  if [ "$TARGETPLATFORM" != "linux/arm64" ]; then \
     uv pip install https://github.com/flashinfer-ai/flashinfer/releases/download/v0.2.1.post1/flashinfer_python-0.2.1.post1+cu124torch2.5-cp38-abi3-linux_x86_64.whl ; \
-    ls -al;\
 fi
 COPY examples examples
 
@@ -89,7 +87,6 @@ COPY examples examples
 # TODO: Remove this once FlashInfer AOT wheel is fixed
 COPY requirements/build.txt requirements/build.txt
 RUN  uv pip install -r requirements/build.txt
-RUN  ls -al
 #################### vLLM installation IMAGE ####################
 
 
