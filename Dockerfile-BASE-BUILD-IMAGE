@@ -8,7 +8,8 @@
 ARG CUDA_VERSION=12.4.1
 #################### BASE BUILD IMAGE ####################
 # prepare basic build environment
-FROM nvidia/cuda:${CUDA_VERSION}-devel-ubuntu20.04 AS base
+#FROM nvidia/cuda:${CUDA_VERSION}-devel-ubuntu20.04 AS base
+FROM nvidia/cuda:${CUDA_VERSION}-runtime-ubuntu20.04 AS base
 ARG CUDA_VERSION=12.4.1
 ARG PYTHON_VERSION=3.12
 ARG TARGETPLATFORM
@@ -56,8 +57,7 @@ RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
 
 COPY requirements/common.txt requirements/common.txt
 COPY requirements/cuda.txt requirements/cuda.txt
-RUN  uv pip install -r requirements/cuda.txt &&  rm -rf /var/lib/apt/lists/* && rm -rf  /opt/venv/*
-
+RUN  uv pip install -r requirements/cuda.txt 
 # cuda arch list used by torch
 # can be useful for both `dev` and `test`
 # explicitly set the list to avoid issues with torch 2.2

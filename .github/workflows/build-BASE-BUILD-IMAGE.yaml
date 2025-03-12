@@ -34,7 +34,7 @@ jobs:
           context: .
           push: true
           file: ./Dockerfile-BASE-BUILD-IMAGE  # 显式指定 Dockerfile
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           tags: ${{ env.DOCKERHUB_USERNAME }}/backend-vllm:${{ steps.vars.outputs.sha_short }}
         
     
