@@ -54,14 +54,10 @@ RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
         uv pip install --index-url https://download.pytorch.org/whl/nightly/cu124 "torch==2.6.0.dev20241210+cu124" "torchvision==0.22.0.dev20241215";  \
     fi
 
-RUN ls -l
 
-RUN ls -l ../
-
-RUN ls -l  /vllm-workspace/dist/
 
 # Install vllm wheel first, so that torch etc will be installed.
-RUN uv pip install dist/*.whl --verbose
+#RUN uv pip install dist/*.whl --verbose
 
 # If we need to build FlashInfer wheel before its release:
 # $ export FLASHINFER_ENABLE_AOT=1
