@@ -3,7 +3,7 @@ name: build
 on:
   push:
     branches:
-      - "main1"
+      - "main"
 
 env:
   DOCKERHUB_USERNAME: jacob1107
@@ -33,17 +33,11 @@ jobs:
         with:
           context: .
           push: true
-          platforms: linux/amd64,linux/arm64
+          file: ./Dockerfile-BASE-BUILD-IMAGE  # 显式指定 Dockerfile
+          platforms: linux/amd64
           tags: ${{ env.DOCKERHUB_USERNAME }}/backend-vllm:${{ steps.vars.outputs.sha_short }}
         
-      - name: Build Docker Image
-        run:  DOCKER_BUILDKIT=1 docker build  -t ${{ env.DOCKERHUB_USERNAME }}/backend-vllm:${{ steps.vars.outputs.sha_short }}-vllm-openai  .  
-      # run:  DOCKER_BUILDKIT=1 docker build  -t ${{ env.DOCKERHUB_USERNAME }}/backend-vllm:${{ steps.vars.outputs.sha_short }}-vllm-base  -f  Dockerfile_bak-1 .   --target   vllm-base
-       # run:  DOCKER_BUILDKIT=1 docker build  -t ${{ env.DOCKERHUB_USERNAME }}/backend-vllm:${{ steps.vars.outputs.sha_short }}  .   --target  base
-       # run:  DOCKER_BUILDKIT=1 docker build  -t ${{ env.DOCKERHUB_USERNAME }}/backend-vllm:${{ steps.vars.outputs.sha_short }}  -f  Dockerfile_bak .   --target   vllm-openai
-      - name: Push Docker Image
-        run:  docker push  ${{ env.DOCKERHUB_USERNAME }}/backend-vllm:${{ steps.vars.outputs.sha_short }} 
-      
+    
       
       
       # - name: Update helm values.yaml
