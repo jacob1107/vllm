@@ -28,6 +28,14 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
      #- name: Clean Docker
      #   run: docker system prune --all --force --volumes
+      - name: Build  and push Image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ env.DOCKERHUB_USERNAME }}/backend-vllm:${{ steps.vars.outputs.sha_short }}
+        
       - name: Build Docker Image
         run:  DOCKER_BUILDKIT=1 docker build  -t ${{ env.DOCKERHUB_USERNAME }}/backend-vllm:${{ steps.vars.outputs.sha_short }}-vllm-openai  .  
       # run:  DOCKER_BUILDKIT=1 docker build  -t ${{ env.DOCKERHUB_USERNAME }}/backend-vllm:${{ steps.vars.outputs.sha_short }}-vllm-base  -f  Dockerfile_bak-1 .   --target   vllm-base
