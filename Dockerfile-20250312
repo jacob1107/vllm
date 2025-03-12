@@ -2,8 +2,9 @@
 #################### vLLM installation IMAGE ####################
 # image with vLLM installed
 # TODO: Restore to base image after FlashInfer AOT wheel fixed
-ARG CUDA_VERSION=12.4.1
-FROM nvidia/cuda:12.4.1-devel-ubuntu20.04 AS vllm-base
+#ARG CUDA_VERSION=12.4.1
+#nvidia/cuda:12.4.1-devel-ubuntu20.04 
+FROM nvidia/cuda:12.4.1-runtime-ubuntu22.04 AS vllm-base
 ARG PYTHON_VERSION=3.12
 WORKDIR /vllm-workspace
 ARG TARGETPLATFORM
