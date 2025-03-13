@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     curl \
     git \
-    && ln -s /usr/bin/python3.10 /usr/bin/python3 \
+    && ln -sf /usr/bin/python3.10 /usr/bin/python3 \
     && rm -rf /var/lib/apt/lists/*
 
 # 安装 PyTorch (CUDA 12.1 版本)
