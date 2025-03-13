@@ -1,0 +1,44 @@
+# 使用 NVIDIA CUDA 12.1 基础镜像
+FROM nvidia/cuda:12.1.0-runtime-ubuntu22.04
+
+# 设置环境变量
+ENV PYTHONUNBUFFERED=1 \
+    PATH="/usr/local/cuda/bin:$PATH" \
+    LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
+
+# 安装系统依赖
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3.10 \
+    python3-pip \
+    build-essential \
+    curl \
+    git \
+    && ln -s /usr/bin/python3.10 /usr/bin/python3 \
+    && rm -rf /var/lib/apt/lists/*
+
+# 安装 PyTorch (CUDA 12.1 版本)
+RUN pip3 install --no-cache-dir \
+    torch==2.1.2+cu121 \
+    torchvision==0.16.2+cu121 \
+    torchaudio==2.1.2+cu121 \
+    --index-url https://download.pytorch.org/whl/cu121
+
+ # 源码构建模式
+RUN git clone https://github.com/vllm-project/vllm.git && \
+cd vllm && \
+git checkout v0.7.2 && \
+pip3 install -e .   
+
+# 安装 vLLM 及其核心依赖
+RUN pip3 install --no-cache-dir \
+   # vllm==0.7.2 \
+    huggingface_hub \
+    "transformers>=4.37.0" \
+    "numpy>=1.22.0" \
+    "ninja>=1.11.1"
+
+# 暴露API端口
+EXPOSE 8000
+
+# 启动服务
+CMD ["python3", "-m", "vllm.api_server", "--host", "0.0.0.0"]
